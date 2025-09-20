@@ -15,6 +15,10 @@ def get_db():
     finally:
         db.close()
 
+@app.get("/")
+def root():
+    return {"message": "Добро пожаловать в TODO API! Открой /docs для Swagger UI."}
+
 @app.post("/todos/", response_model=schemas.TodoResponse)
 def create_todo(todo: schemas.TodoCreate, db: Session = Depends(get_db)):
     return crud.create_todo(db, todo)
