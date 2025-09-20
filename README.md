@@ -20,7 +20,7 @@
 ```
 fastapi-todo/
 │── app/
-│   ├── __init__.py       # пакет приложения
+│   ├── __init__.py        # пакет приложения
 │   ├── main.py            # точка входа, маршруты API
 │   ├── models.py          # модели SQLAlchemy
 │   ├── schemas.py         # Pydantic схемы
@@ -29,7 +29,7 @@ fastapi-todo/
 │
 │── tests/
 │   ├── __init__.py        # (опционально) тестовый пакет
-│   └── test_main.py        # тесты для API
+│   └── test_main.py       # тесты для API
 │
 │── requirements.txt
 │── README.md
