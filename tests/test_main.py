@@ -1,17 +1,17 @@
-import sys, os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from app.main import app
 from fastapi.testclient import TestClient
+from app.main import app
 
 client = TestClient(app)
 
 def test_create_todo():
-    response = client.post("/todos/", json={"title": "Test", "description": "Check", "completed": False})
+    response = client.post("/todos/", json={"title": "Test todo", "description": "Check pytest"})
     assert response.status_code == 200
-    assert response.json()["title"] == "Test"
+    data = response.json()
+    assert data["title"] == "Test todo"
+    assert "id" in data
 
 def test_read_todos():
     response = client.get("/todos/")
     assert response.status_code == 200
-    assert isinstance(response.json(), list)
+    data = response.json()
+    assert isinstance(data, list)
