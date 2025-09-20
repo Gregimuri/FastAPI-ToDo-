@@ -1,12 +1,13 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from . import crud, schemas, models
+from . import models, schemas, crud
 from .database import engine, SessionLocal
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+# Dependency
 def get_db():
     db = SessionLocal()
     try:
