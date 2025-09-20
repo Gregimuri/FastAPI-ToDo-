@@ -1,16 +1,12 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class TodoBase(BaseModel):
     title: str
     description: str | None = None
-    completed: bool = False
 
 class TodoCreate(TodoBase):
     pass
 
-class Todo(TodoBase):
+class TodoResponse(TodoBase):
     id: int
-
-    class Config:
-        from_attributes = True
-
+    model_config = ConfigDict(from_attributes=True)
