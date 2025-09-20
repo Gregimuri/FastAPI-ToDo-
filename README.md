@@ -18,7 +18,7 @@
 
 ### 1. Клонируем репозиторий
 ```bash
-git clone https://github.com/username/fastapi-todo.git
+git clone https://github.com/Gregimuri/fastapi-todo.git
 cd fastapi-todo
 ```
 
@@ -108,8 +108,3 @@ GET /todos/
 - [Pydantic](https://docs.pydantic.dev/)  
 - [Pytest](https://docs.pytest.org/)  
 
----
-
-## 👨‍💻 Автор
-- Григорий Ильич  
-- [GitHub](https://github.com/Gregimuri)  
