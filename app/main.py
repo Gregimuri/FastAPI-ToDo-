@@ -1,13 +1,12 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from . import models, schemas, crud
+from . import crud, schemas, models
 from .database import engine, SessionLocal
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="ToDo API")
+app = FastAPI()
 
-# Dependency: подключение к БД
 def get_db():
     db = SessionLocal()
     try:
@@ -15,10 +14,10 @@ def get_db():
     finally:
         db.close()
 
-@app.get("/todos/", response_model=list[schemas.Todo])
-def read_todos(db: Session = Depends(get_db)):
-    return crud.get_todos(db)
-
-@app.post("/todos/", response_model=schemas.Todo)
+@app.post("/todos/", response_model=schemas.TodoResponse)
 def create_todo(todo: schemas.TodoCreate, db: Session = Depends(get_db)):
     return crud.create_todo(db, todo)
+
+@app.get("/todos/", response_model=list[schemas.TodoResponse])
+def read_todos(db: Session = Depends(get_db)):
+    return crud.get_todos(db)
