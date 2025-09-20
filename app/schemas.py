@@ -9,4 +9,5 @@ class TodoCreate(TodoBase):
 
 class TodoResponse(TodoBase):
     id: int
+
     model_config = ConfigDict(from_attributes=True)
