@@ -1,28 +1,34 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
-from . import models, schemas, crud
-from .database import engine, SessionLocal
+from fastapi import FastAPI
+from app import models
+from app.database import engine
+from app.routers import todos
 
+# Создаем таблицы (если их нет)
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+# Инициализация приложения
+app = FastAPI(
+    title="FastAPI TODO",
+    description="Простое API для управления задачами",
+    version="1.0.0"
+)
 
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# Подключаем роутер для todos
+app.include_router(todos.router)
+
 
 @app.get("/")
 def root():
-    return {"message": "Добро пожаловать в TODO API! Открой /docs для Swagger UI."}
-
-@app.post("/todos/", response_model=schemas.TodoResponse)
-def create_todo(todo: schemas.TodoCreate, db: Session = Depends(get_db)):
-    return crud.create_todo(db, todo)
-
-@app.get("/todos/", response_model=list[schemas.TodoResponse])
-def read_todos(db: Session = Depends(get_db)):
-    return crud.get_todos(db)
+    return {
+        "project": "FastAPI TODO",
+        "version": "1.0.0",
+        "author": "Gregimuri",
+        "docs": "http://127.0.0.1:8000/docs",
+        "endpoints": {
+            "GET /todos/": "Получить список задач",
+            "POST /todos/": "Создать новую задачу",
+            "GET /todos/{id}": "Получить задачу по ID",
+            "PUT /todos/{id}": "Обновить задачу",
+            "DELETE /todos/{id}": "Удалить задачу"
+        }
+    }
