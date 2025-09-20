@@ -44,7 +44,7 @@ uvicorn app.main:app --reload
 
 Запуск автотестов:
 ```bash
-pytest
+python -m pytest
 ```
 
 ---
